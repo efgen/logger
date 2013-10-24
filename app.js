@@ -5,14 +5,14 @@
 
 var express = require('express')
   , routes = require('./routes')
-  , user = require('./routes/user')
+  , logs = require('./routes/logs')
   , http = require('http')
   , path = require('path');
 
 var app = express();
 
 // all environments
-app.set('port', process.env.PORT || 3000);
+app.set('port', process.env.PORT || 5432);
 app.set('views', __dirname + '/views');
 app.set('view engine', 'jade');
 app.use(express.favicon());
@@ -28,7 +28,9 @@ if ('development' == app.get('env')) {
 }
 
 app.get('/', routes.index);
-app.get('/users', user.list);
+app.get('/logs', logs.list);
+app.get('/logs/clear', logs.clear);
+app.post('/logs/add', logs.add);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));

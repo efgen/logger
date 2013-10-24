@@ -1,5 +1,17 @@
 extends layout
-
 block content
+  script(type='text/javascript').
+    $(function(){
+      console.log('test');
+      var data = {message: 'test'};
+      $.ajax({
+         url: 'http://127.0.0.1:3000/logs/add',
+         type: 'POST',
+         data: data,
+         success: function (res) {
+            console.log(res)
+         }
+      });
+    })
   h1= title
   p Welcome to #{title}
